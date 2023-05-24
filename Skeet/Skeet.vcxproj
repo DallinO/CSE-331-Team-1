@@ -33,6 +33,7 @@
   <ItemGroup>
     <ClInclude Include="bullet.h" />
     <ClInclude Include="bird.h" />
+    <ClInclude Include="command.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="gun.h" />
     <ClInclude Include="point.h" />
