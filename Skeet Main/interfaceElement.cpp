@@ -132,3 +132,42 @@ void InterfaceMissle::draw(StorageElement* element)
 		drawDot(element->getPoint(), 3.0, 1.0, 1.0, 1.0);
 	}
 }
+
+void InterfaceStandard::draw(StorageElement* element)
+{
+	if (!element->isDead())
+	{
+		drawDisk(element->getPoint(), element->getRadius() - 0.0, 1.0, 1.0, 1.0); // white outline
+		drawDisk(element->getPoint(), element->getRadius() - 3.0, 0.0, 0.0, 1.0); // blue center
+	}
+}
+
+void InterfaceFloater::draw(StorageElement* element)
+{
+	if (!element->isDead())
+	{
+		drawDisk(element->getPoint(), element->getRadius() - 0.0, 0.0, 0.0, 1.0); // blue outline
+		drawDisk(element->getPoint(), element->getRadius() - 4.0, 1.0, 1.0, 1.0); // white center
+	}
+}
+
+void InterfaceCrazy::draw(StorageElement* element)
+{
+	if (!element->isDead())
+	{
+		drawDisk(element->getPoint(), element->getRadius() * 1.0, 0.0, 0.0, 1.0); // bright blue outside
+		drawDisk(element->getPoint(), element->getRadius() * 0.8, 0.2, 0.2, 1.0);
+		drawDisk(element->getPoint(), element->getRadius() * 0.6, 0.4, 0.4, 1.0);
+		drawDisk(element->getPoint(), element->getRadius() * 0.4, 0.6, 0.6, 1.0);
+		drawDisk(element->getPoint(), element->getRadius() * 0.2, 0.8, 0.8, 1.0); // almost white inside
+	}
+}
+
+void InterfaceSinker::draw(StorageElement* element)
+{
+	if (!element->isDead())
+	{
+		drawDisk(element->getPoint(), element->getRadius() - 0.0, 0.0, 0.0, 0.8);
+		drawDisk(element->getPoint(), element->getRadius() - 4.0, 0.0, 0.0, 0.0);
+	}
+}

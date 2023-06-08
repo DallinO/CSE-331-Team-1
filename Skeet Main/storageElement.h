@@ -44,6 +44,9 @@ public:
 
 class StorageEffect : StorageElement
 {
+private:
+	double age;
 public:
 	StorageEffect(string type);
+	double getAge() { return age; }
 };
