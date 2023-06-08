@@ -10,4 +10,5 @@ public:
 	void input();
 	void processing();
 	void output();
+	void glVertexPoint(const Point& point);
 };

@@ -1,74 +1,86 @@
 #pragma once
+#include "storageElement.h"
 
 class InterfaceElement
 {
 public:
-	void virtual draw() = 0;
+	virtual void draw(StorageElement* element) = 0;
 };
 
-class InterfacePellet : InterfaceElement
+class InterfaceBullet : public InterfaceElement
 {
-public:
-	void draw() override;
+protected:
+	void drawLine(const Point& begin, const Point& end,
+		double red = 1.0, double green = 1.0, double blue = 1.0) const;
+	void drawDot(const Point& point, double radius = 2.0,
+		double red = 1.0, double green = 1.0, double blue = 1.0) const;
+	int random(int min, int max);
+	double random(double min, double max);
 };
 
-class InterfaceShrapnel: InterfaceElement
+class InterfacePellet : public InterfaceBird
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceBomb : InterfaceElement
+class InterfaceShrapnel: public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceMissle : InterfaceElement
+class InterfaceBomb : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceStandard : InterfaceElement
+class InterfaceMissle : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceFloater : InterfaceElement
+class InterfaceStandard : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceCrazy : InterfaceElement
+class InterfaceFloater : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceSinker : InterfaceElement
+class InterfaceCrazy : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceFragment : InterfaceElement
+class InterfaceSinker : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceStreek : InterfaceElement
+class InterfaceFragment : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
 };
 
-class InterfaceExhuast : InterfaceElement
+class InterfaceStreek : public InterfaceElement
 {
 public:
-	void draw() override;
+	void draw(StorageElement* element) override;
+};
+
+class InterfaceExhuast : public InterfaceElement
+{
+public:
+	void draw(StorageElement* element) override;
 };
 

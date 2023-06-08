@@ -20,6 +20,14 @@ protected:
 	InterfaceElement* pInterface;
 public:
 	StorageElement(LogicElement* plogic, InterfaceElement* pInterface);
+	string getType() { return type; }
+	Point getPoint() { return pt; }
+	Velocity getVelocity() { return v; }
+	double getRadius() { return radius; }
+	int getPoints() { return points; }
+	bool isDead() { return dead; }
+	LogicElement* getPLogic() { return plogic; }
+	InterfaceElement* getPInterface() { return pInterface; }
 };
 
 class StorageBird : StorageElement
