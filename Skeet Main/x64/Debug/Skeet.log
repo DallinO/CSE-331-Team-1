@@ -1,0 +1,12 @@
+﻿  bird.cpp
+  bullet.cpp
+  effect.cpp
+  game.cpp
+  gun.cpp
+  point.cpp
+  score.cpp
+  skeet.cpp
+  time.cpp
+  uiInteract.cpp
+  Generating Code...
+  Skeet.vcxproj -> C:\Users\offic\Documents\GitHub\CSE-331-Team-1\Skeet Main\x64\Debug\Skeet.exe
