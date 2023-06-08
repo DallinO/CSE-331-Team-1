@@ -1,5 +1,6 @@
 #pragma once
 #include "storage.h"
+#include "iterator.h"
 class Logic
 {
 private:
@@ -9,8 +10,8 @@ public:
 	void advance();
 	void spawn();
 	void input();
-	iterator begin();
-	iterator end();
+	Iterator begin();
+	Iterator end();
 	int getFramesLeft();
 	int getLevelNumber();
 	double getGunAngle();
