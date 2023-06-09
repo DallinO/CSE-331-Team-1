@@ -22,43 +22,31 @@
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
 
-
-void InterfaceBird::drawDot(const Point& point, double radius = 2.0, double red = 1.0, double green = 1.0, double blue = 1.0) const
+bool BulletLogic::isOutOfBounds(BulletStorage* bullet) const
 {
-	// Get ready, get set...
-	glBegin(GL_TRIANGLE_FAN);
-	glColor3f((GLfloat)red, (GLfloat)green, (GLfloat)blue);
-	double r = radius / 2.0;
-
-	// Go...
-	glVertex2f((GLfloat)(point.getX() - r), (GLfloat)(point.getY() - r));
-	glVertex2f((GLfloat)(point.getX() + r), (GLfloat)(point.getY() - r));
-	glVertex2f((GLfloat)(point.getX() + r), (GLfloat)(point.getY() + r));
-	glVertex2f((GLfloat)(point.getX() - r), (GLfloat)(point.getY() + r));
-
-	// Done!  OK, that was a bit too dramatic
-	glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
-	glEnd();
+	return (bullet->getPoint().getX() < -bullet->getRadius() || bullet->getPoint().getX() >= bullet->getDimensions().getX() + bullet->getRadius() ||
+		bullet->getPoint().getY() < -bullet->getRadius() || bullet->getPoint().getY() >= bullet->getDimensions().getY() + bullet->getRadius());
 }
 
-void InterfaceBullet::drawLine(const Point& begin, const Point& end,
-	double red, double green, double blue) const
+void BulletLogic::move(BulletStorage* bullet, list<StorageEffect*> effects)
 {
-	// Get ready...
-	glBegin(GL_LINES);
-	glColor3f((GLfloat)red, (GLfloat)green, (GLfloat)blue);
+	// inertia
+	bullet->getPoint().add(bullet->getVelocity());
 
-	// Draw the actual line
-	glVertexPoint(begin);
-	glVertexPoint(end);
-
-	// Complete drawing
-	glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
-	glEnd();
+	// out of bounds checker
+	if (isOutOfBounds(bullet))
+		kill(bullet);
 }
 
-void InterfacePellet::draw(StorageElement* element)
+
+
+void BombLogic::move(BulletStorage* bullet, list<StorageEffect*> effects)
 {
-	if (!element->isDead())
-		drawDot(element->getPoint(), 3.0, 1.0, 1.0, 0.0);
+	// kill if it has been around too long
+	bullet->setTimeToDie(bullet->getTimeToDie() - 1);
+	if (!bullet->getTimeToDie())
+		kill(bullet);
+
+	// do the inertia thing
+	BulletLogic::move(bullet, effects);
 }

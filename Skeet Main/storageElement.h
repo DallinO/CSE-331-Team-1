@@ -10,43 +10,57 @@ using namespace std;
 class StorageElement
 {
 protected:
+	static Point dimensions;
 	string type;
 	Point pt;
 	Velocity v;
 	double radius;
 	int points;
 	bool dead;
-	LogicElement* plogic;
-	InterfaceElement* pInterface;
 public:
-	StorageElement(LogicElement* plogic, InterfaceElement* pInterface);
+	StorageElement();
 	string getType() { return type; }
 	Point getPoint() { return pt; }
 	Velocity getVelocity() { return v; }
 	double getRadius() { return radius; }
 	int getPoints() { return points; }
 	bool isDead() { return dead; }
-	LogicElement* getPLogic() { return plogic; }
-	InterfaceElement* getPInterface() { return pInterface; }
+	Point getDimensions() { return dimensions; }
 };
 
-class StorageBird : StorageElement
-{
-public:
-	StorageBird(string type);
-};
-
-class StorageBullet : StorageElement
-{
-public:
-	StorageBullet(string type);
-};
-
-class StorageEffect : StorageElement
+class BulletStorage : public StorageElement
 {
 private:
+	int timeToDie;
+public:
+	int getTimeToDie() { return timeToDie; }
+	void setTimeToDie(int value) { timeToDie = value; }
+};
+
+class StorageEffect
+{
+private:
+	Point pt;
+	Velocity v;
+	double size;
 	double age;
+	Point ptEnd;
 public:
 	StorageEffect(string type);
+	Point getPoint() { return pt; }
 	double getAge() { return age; }
+	double getSize() { return size; }
+	Velocity getV() { return v; }
+	Point getPtEnd() { return ptEnd; }
+};
+
+class UserInputStorage
+{
+
+};
+
+enum ElementType
+{
+	Bird,
+	Bullet,
 };

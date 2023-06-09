@@ -97,19 +97,19 @@ void drawDisk(const Point& center, double radius,
 	glEnd();
 }
 
-void InterfacePellet::draw(StorageElement* element)
+void InterfacePellet::draw(BulletStorage* element)
 {
 	if (!element->isDead())
 		drawDot(element->getPoint(), 3.0, 1.0, 1.0, 0.0);
 }
 
-void InterfaceShrapnel::draw(StorageElement* element)
+void InterfaceShrapnel::draw(BulletStorage* element)
 {
 	if (!element->isDead())
 		drawDot(element->getPoint(), element->getRadius(), 1.0, 1.0, 0.0);
 }
 
-void InterfaceBomb::draw(StorageElement* element)
+void InterfaceBomb::draw(BulletStorage* element)
 {
 	if (!element->isDead())
 	{
@@ -121,7 +121,7 @@ void InterfaceBomb::draw(StorageElement* element)
 	}
 }
 
-void InterfaceMissle::draw(StorageElement* element)
+void InterfaceMissle::draw(BulletStorage* element)
 {
 	if (!element->isDead())
 	{
@@ -170,4 +170,58 @@ void InterfaceSinker::draw(StorageElement* element)
 		drawDisk(element->getPoint(), element->getRadius() - 0.0, 0.0, 0.0, 0.8);
 		drawDisk(element->getPoint(), element->getRadius() - 4.0, 0.0, 0.0, 0.0);
 	}
+}
+
+void InterfaceFragment::draw(StorageEffect* element)
+{
+	if (element->isDead())
+		return;
+
+	// Draw this sucker
+	glBegin(GL_TRIANGLE_FAN);
+
+	// the color is a function of age - fading to black
+	glColor3f((GLfloat)element->getAge(), (GLfloat)element->getAge(), (GLfloat)element->getAge());
+
+	// draw the fragment
+	glVertex2f((GLfloat)(element->getPoint().getX() - element->getSize()), (GLfloat)(element->getPoint().getY() - element->getSize()));
+	glVertex2f((GLfloat)(element->getPoint().getX() + element->getSize()), (GLfloat)(element->getPoint().getY() - element->getSize()));
+	glVertex2f((GLfloat)(element->getPoint().getX() + element->getSize()), (GLfloat)(element->getPoint().getY() + element->getSize()));
+	glVertex2f((GLfloat)(element->getPoint().getX() - element->getSize()), (GLfloat)(element->getPoint().getY() + element->getSize()));
+	glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
+	glEnd();
+}
+
+void InterfaceStreek::draw(StorageEffect* element)
+{
+	if (element->isDead())
+		return;
+
+	// Draw this sucker
+	glBegin(GL_LINES);
+	glColor3f((GLfloat)element->getSize(), (GLfloat)element->getAge(), (GLfloat)element->getAge());
+
+	// Draw the actual line
+	glVertex2f((GLfloat)element->getPoint().getX(), (GLfloat)element->getPoint().getY());
+	glVertex2f((GLfloat)element->getPtEnd().getX(), (GLfloat)element->getPtEnd().getY());
+
+	glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
+	glEnd();
+}
+
+void InterfaceExhuast::draw(StorageEffect* element)
+{
+	if (element->isDead())
+		return;
+
+	// Draw this sucker
+	glBegin(GL_LINES);
+	glColor3f((GLfloat)element->getAge(), (GLfloat)element->getAge(), (GLfloat)element->getAge());
+
+	// Draw the actual line
+	glVertex2f((GLfloat)element->getPoint().getX(), (GLfloat)element->getPoint().getY());
+	glVertex2f((GLfloat)element->getPtEnd().getX(), (GLfloat)element->getPtEnd().getY());
+
+	glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
+	glEnd();
 }

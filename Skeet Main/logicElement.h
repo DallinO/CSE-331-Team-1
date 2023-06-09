@@ -1,86 +1,88 @@
 #pragma once
-#include "storageElement.h"
+#include "StorageElement.h"
+#include <list>
 
-class LogicElement
+class BirdLogic
 {
-public:
-	void virtual advance(StorageElement* storage);
-	void virtual turn(StorageElement* storage);
+protected:
+	void virtual advance(StorageElement* bird);
+	void kill(StorageElement* bird);
+	bool isOutOfBounds(StorageElement* element) const;
 };
 
-class LogicPellet : LogicElement
+class StandardLogic : public BirdLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void advance(StorageElement* bird);
 };
 
-class LogicShrapnel : LogicElement
+class FloaterLogic : public BirdLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void advance(StorageElement* bird);
 };
 
-class LogicBomb : LogicElement
+class CrazyLogic : public BirdLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void advance(StorageElement* bird);
 };
 
-class LogicMissle : LogicElement
+class SinkerLogic : public BirdLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void advance(StorageElement* bird);
 };
 
-class LogicStandard : LogicElement
+class BulletLogic
 {
-public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+protected:
+	bool isOutOfBounds(BulletStorage* bullet) const;
+	void kill(BulletStorage* bullet);
+	void virtual death(BulletStorage* bullet, list<BulletStorage*> bullets);
+	void virtual move(BulletStorage* bullet, list<StorageEffect*> effects);
 };
 
-class LogicFloater : LogicElement
+class BombLogic : public BulletLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void death(BulletStorage* bullet, list<BulletStorage*> bullets);
+	void move(BulletStorage* bullet, list<StorageEffect*> effects);
 };
 
-class LogicCrazy : LogicElement
+class ShrapnelLogic : public BulletLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void move(BulletStorage* bullet, list<StorageEffect*> effects);
 };
 
-class LogicSinker : LogicElement
+class MissleLogic : public BulletLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void move(BulletStorage* bullet, list<StorageEffect*> effects);
 };
 
-class LogicFragment : LogicElement
+class EffectLogic
 {
-public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+protected:
+	void virtual fly(StorageEffect* effect);
+	bool isDead(StorageEffect* effect);
 };
 
-class LogicStreek : LogicElement
+class FragmentLogic : public EffectLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void fly(StorageEffect* effect);
 };
 
-class LogicExhuast : LogicElement
+class StreekLogic : public EffectLogic
 {
 public:
-	void advance(StorageElement* storage) override;
-	void turn(StorageElement* storage) override;
+	void fly(StorageEffect* effect);
+};
+
+class ExhuasttLogic : public EffectLogic
+{
+public:
+	void fly(StorageEffect* effect);
 };
