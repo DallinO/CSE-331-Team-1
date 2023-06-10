@@ -11,12 +11,6 @@
 #include "interface.h"
 #include "point.h"
 
-#define WIDTH  800.0
-#define HEIGHT 800.0
-
-Point Bullet::dimensions(WIDTH, HEIGHT);
-Point Bird::dimensions(WIDTH, HEIGHT);
-
  /*************************************
   * All the interesting work happens here, when
   * I get called back from OpenGL to output a frame.
@@ -31,16 +25,7 @@ void callBack(const UserInput* pUI, void* p)
    Interface* pSkeet = (Interface*)p;
 
    // handle user input
-   pSkeet->interact(*pUI);
-
-   // move the stuff
-   pSkeet->animate();
-
-   // output the stuff
-   if (pSkeet->isPlaying())
-      pSkeet->drawLevel();
-   else
-      pSkeet->drawStatus();
+   pSkeet->run();
 }
 
 /*********************************

@@ -76,10 +76,10 @@ public:
 class TimeInterface
 {
 public:
-	string getText(Logic* logic) const
+	string getText(Logic* logic, Storage* storage) const
 	{
 		ostringstream sout;
-		sout << "Time:  " << secondsLeft();
+		sout << "Time:  " << logic->getTimeLogic().secondsLeft(storage->getTime());
 		return sout.str();
 	}
 };

@@ -24,7 +24,10 @@ private:
 
 	void drawLevel();
 	void drawStatus();
-	void drawBackground(double redBack, double greenBack, double blueBack) const;
+	void drawTimer(double percent,
+		double redFore, double greenFore, double blueFore,
+		double redBack, double greenBack, double blueBack) const;
+	void drawBackground(double redBack, double greenBack, double blueBack, Point dimensions) const;
 
 public:
 	Interface(const UserInput& ui) { this->ui = ui; }
@@ -37,6 +40,4 @@ public:
 		else
 			drawStatus();
 	}
-	void drawLevel();
-	void drawStatus();
 };
