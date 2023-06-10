@@ -1,4 +1,5 @@
 #pragma once
+#include "logicElement.h"
 
 class InterfaceElement
 {
@@ -72,3 +73,19 @@ public:
 	void draw(StorageEffect* element);
 };
 
+class TimeInterface
+{
+public:
+	string getText(Logic* logic) const
+	{
+		ostringstream sout;
+		sout << "Time:  " << secondsLeft();
+		return sout.str();
+	}
+};
+
+class GunInterface
+{
+public:
+	void display(GunLogic* gun) const;
+};

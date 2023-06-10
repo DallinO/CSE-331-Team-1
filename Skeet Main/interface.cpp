@@ -1,7 +1,7 @@
 #pragma once
-#include "interface.h"
 #include "point.h"
 #include "effect.h"
+#include "interface.h"
 #include <list>
 #include <cassert>
 
@@ -27,7 +27,24 @@
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
 
-void Interface::glVertexPoint(const Point& point)
+void Interface::drawLevel()
 {
-	glVertex2f((GLfloat)point.getX(), (GLfloat)point.getY());
+    // output the background
+    drawBackground(time.level() * .1, 0.0, 0.0);
+
+    // output the gun
+    gun.display();
+
+    // output the birds, bullets, and fragments
+    for (auto effect : effects)
+        effect->render();
+    for (auto bullet : bullets)
+        bullet->output();
+    for (auto element : birds)
+        element->draw();
+
+    // status
+    drawText(Point(10, dimensions.getY() - 30), score.getText());
+    drawText(Point(dimensions.getX() / 2 - 30, dimensions.getY() - 30), time.getText());
+    drawText(Point(dimensions.getX() - 110, dimensions.getY() - 30), hitRatio.getText());
 }

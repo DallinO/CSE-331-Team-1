@@ -97,6 +97,47 @@ void drawDisk(const Point& center, double radius,
 	glEnd();
 }
 
+Point rotate(const Point& origin,
+	double x, double y, double rotation)
+{
+	// because sine and cosine are expensive, we want to call them only once
+	double cosA = cos(rotation);
+	double sinA = sin(rotation);
+
+	// start with our original point
+	Point ptReturn(origin);
+
+	// find the new values
+	ptReturn.addX(x * cosA - y * sinA);
+	ptReturn.addY(y * cosA + x * sinA /*center of rotation*/);
+
+	return ptReturn;
+}
+
+void drawRectangle(const Point& pt,
+	double angle = 0.0,
+	double width = 10.0,
+	double height = 100.0,
+	double red = 1.0,
+	double green = 1.0,
+	double blue = 1.0)
+{
+	// Get ready...
+	glBegin(GL_QUADS);
+	glColor3f((GLfloat)red, (GLfloat)green, (GLfloat)blue);
+
+	// Draw the actual line
+	glVertexPoint(rotate(pt, width / 2.0, height / 2.0, angle));
+	glVertexPoint(rotate(pt, width / 2.0, -height / 2.0, angle));
+	glVertexPoint(rotate(pt, -width / 2.0, -height / 2.0, angle));
+	glVertexPoint(rotate(pt, -width / 2.0, height / 2.0, angle));
+	glVertexPoint(rotate(pt, width / 2.0, height / 2.0, angle));
+
+	// Complete drawing
+	glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
+	glEnd();
+}
+
 void InterfacePellet::draw(BulletStorage* element)
 {
 	if (!element->isDead())
@@ -224,4 +265,9 @@ void InterfaceExhuast::draw(StorageEffect* element)
 
 	glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
 	glEnd();
+}
+
+void GunInterface::display(Logic* logic) const
+{
+	drawRectangle(pt, M_PI_2 - angle, 10.0, 100.0, 1.0, 1.0, 1.0);
 }
