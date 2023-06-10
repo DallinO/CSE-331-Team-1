@@ -4,7 +4,7 @@
 class InterfaceElement
 {
 public:
-	virtual void draw() = 0;
+	virtual void draw();
 };
 
 class InterfacePellet : public InterfaceElement
@@ -87,5 +87,5 @@ public:
 class GunInterface
 {
 public:
-	void display(GunLogic* gun) const;
+	void display(GunStorage* gun) const;
 };

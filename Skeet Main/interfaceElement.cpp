@@ -267,7 +267,7 @@ void InterfaceExhuast::draw(StorageEffect* element)
 	glEnd();
 }
 
-void GunInterface::display(Logic* logic) const
+void GunInterface::display(GunStorage* gun) const
 {
-	drawRectangle(pt, M_PI_2 - angle, 10.0, 100.0, 1.0, 1.0, 1.0);
+	drawRectangle(gun->getPoint(), M_PI_2 - gun->getAngle(), 10.0, 100.0, 1.0, 1.0, 1.0);
 }
